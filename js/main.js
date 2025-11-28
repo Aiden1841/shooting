@@ -1,3 +1,4 @@
+
 import { player, initPlayer, drawPlayer } from "./player.js";
 import { spawnEnemy, enemies, updateEnemies, drawEnemies } from "./enemies.js";
 import { handleCollisions } from "./collision.js";
@@ -5,26 +6,35 @@ import { handleCollisions } from "./collision.js";
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const mapImage = new Image();
+mapImage.src = "map.png";
 
 initPlayer(canvas);
 
 export const bullets = [];
-const BULLET_SPEED = -20   ;
+const BULLET_SPEED = -5;
 
 function tryShoot() {
     bullets.push({
-        x: player.x + player.width/2-5,
+        x: player.x + player.width / 2 - 5,
         y: player.y,
-        width: 110,
-        height: 50, 
+        width: 5,
+        height: 40,
+        vx:0,
         vy: BULLET_SPEED,
     })
 }
-function updateScore(){
-const scoreBoard=document.getElementById("scoreBoard");
-scoreBoard.innerText=`Score:${player.score}`;
-const lifeBoard=document.getElementById("lifeBoard");
-lifeBoard.innerText=`Score:${player.life}`;
+
+
+
+
+
+
+function updateScore() {
+    const scoreBoard = document.getElementById("scoreBoard");
+    scoreBoard.innerText = `Score: ` + player.score;
+    const lifeBoard = document.getElementById("lifeBoard");
+    lifeBoard.innerText = `Life: ` + player.life;
 }
 
 window.addEventListener("keydown", (e) => {
@@ -49,7 +59,7 @@ function update() {
             bullets.splice(i, 1);
         }
     }
-    spawnEnemy(canvas);    
+    spawnEnemy(canvas);
     updateEnemies(canvas);
     handleCollisions();
     updateScore();
@@ -57,11 +67,11 @@ function update() {
 
 function draw() {
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(mapImage, 0, 0, canvas.width, canvas.height);
 
     drawPlayer(ctx);
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "  pink";
     for (let i = 0; i < bullets.length; i++) {
         const bullet = bullets[i];
         ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);

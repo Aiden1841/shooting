@@ -1,19 +1,20 @@
 export const enemies = [];
-const SIZE = 50;
-const enemyImage= new Image();
-enemyImage.src="enemy.png";
+const SIZE = 135;
+const enemyImage = new Image();
+enemyImage.src = "enemy.png";
+
 function pushEnemies(canvas) {
   const w = SIZE;
   const h = SIZE;
   const x = Math.random() * (canvas.width - w);
   const y = 0;
-  const vy = 5
+  const vy = 2
 
   enemies.push({ x, y, width: w, height: h, vy });
 }
 
 export function spawnEnemy(canvas) {
- if (enemies.length < 5) {
+ if (enemies.length < 2) {
     pushEnemies(canvas);
  }
 }
@@ -31,6 +32,6 @@ export function updateEnemies(canvas) {
 export function drawEnemies(ctx) {
   ctx.fillStyle = "crimson";
   for (const e of enemies) {
-    ctx.drawImage(enemyImage,e.x, e.y, e.width, e.height);
+     ctx.drawImage(enemyImage, e.x, e.y, e.width, e.height);
   }
 }
